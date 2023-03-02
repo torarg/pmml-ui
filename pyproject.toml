@@ -14,6 +14,8 @@ flask-wtf = "^1.1.1"
 wtforms = {extras = ["email"], version = "^3.0.1"}
 werkzeug = "^2.2.3"
 
+[tool.poetry.scripts]
+add-pmml-ui-user = "pmml_ui.auth.add_user:add_user"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
