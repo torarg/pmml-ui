@@ -4,6 +4,6 @@ RUN adduser -D app && apk update && apk add runuser
 
 USER app
 
-RUN pip install waitress pmml-ui==0.1.3
+RUN pip install waitress pmml-ui==0.1.4
 
 CMD [ "/home/app/.local/bin/waitress-serve", "--call", "pmml_ui.app:create_app"]
