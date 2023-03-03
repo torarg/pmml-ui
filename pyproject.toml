@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pmml-ui"
-version = "0.1.1"
+version = "0.1.2"
 description = "Web ui for pmml"
 authors = ["Michael Wilson <mw@1wilson.org>"]
 readme = "README.md"
