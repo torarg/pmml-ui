@@ -29,8 +29,9 @@ class MailingList:
                 return member
 
     def add_member(self, address):
-        member = MailingListMember(address=address)
-        self.members.append(member)
+        if self.get_member(address) is None:
+            member = MailingListMember(address=address)
+            self.members.append(member)
 
     def remove_member(self, address, address_is_url_encoded=True):
         decoded_address = address
