@@ -1,15 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import (
-    Blueprint,
-    abort,
-    g,
-    redirect,
-    render_template,
-    session,
-    url_for,
-)
+from flask import Blueprint, abort, g, redirect, render_template, session, url_for
 
 from pmml_ui.auth.views import login_required
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
