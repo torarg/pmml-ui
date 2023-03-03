@@ -21,7 +21,11 @@ add-pmml-ui-user = "pmml_ui.auth.add_user:add_user"
 black = "^23.1.0"
 flake8 = "^6.0.0"
 isort = "^5.12.0"
+flake8-pyproject = "^1.2.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 88
