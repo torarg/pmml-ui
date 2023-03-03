@@ -1,0 +1,5 @@
+{
+  "admin": {
+      "password_hash": "SOME_HASH"
+  }
+}

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pmml-ui-serviceaccount
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: secret-writer
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["get", "list", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pod-deleter
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-and-write-secrets
+subjects:
+- kind: ServiceAccount
+  name: pmml-ui-serviceaccount
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: secret-writer
+  apiGroup: ""
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-and-delete-pods
+subjects:
+- kind: ServiceAccount
+  name: pmml-ui-serviceaccount
+  apiGroup: ""
+roleRef:
+  kind: Role
+  name: pod-deleter
+  apiGroup: ""
