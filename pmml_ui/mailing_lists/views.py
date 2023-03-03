@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, g, redirect, render_template, url_for, session, request
+from flask import Blueprint, g, redirect, render_template, url_for, session, request, abort
 
 from pmml_ui.auth.views import login_required
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
@@ -27,6 +27,8 @@ def index():
 @blueprint.route("/<mailing_list_name>", methods=["GET", "POST"])
 @login_required
 def detail(mailing_list_name):
+    if mailing_list_name not in g.updater.config.mailing_lists:
+        abort(404, description="Resource not found")
     mailing_list = g.updater.config.mailing_lists[mailing_list_name]
     mailing_list_form = MailingListForm(obj=mailing_list)
     if mailing_list_form.validate_on_submit():
@@ -47,6 +49,8 @@ def detail(mailing_list_name):
 @blueprint.route("/<mailing_list_name>/add", methods=["GET", "POST"])
 @login_required
 def add_member(mailing_list_name):
+    if mailing_list_name not in g.updater.config.mailing_lists:
+        abort(404, description="Resource not found")
     mailing_list = g.updater.config.mailing_lists[mailing_list_name]
     member_form = MailingListMemberFormCSRF()
     if member_form.validate_on_submit():
@@ -65,7 +69,11 @@ def add_member(mailing_list_name):
 @blueprint.route("/<mailing_list_name>/<member_address>/delete")
 @login_required
 def delete_member(mailing_list_name, member_address):
+    if mailing_list_name not in g.updater.config.mailing_lists:
+        abort(404, description="Resource not found")
     mailing_list = g.updater.config.mailing_lists[mailing_list_name]
+    if mailing_list.get_member(member_address) is None:
+        abort(404, description="Resource not found")
     mailing_list.remove_member(member_address)
     g.updater.update(mailing_list)
     return redirect(
