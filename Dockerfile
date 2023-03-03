@@ -6,4 +6,4 @@ USER app
 
 RUN pip install pmml_ui waitress
 
-CMD [ "/home/app/.local/bin/waitress-serve", "pmml_ui.app:create_app"]
+CMD [ "/home/app/.local/bin/waitress-serve", "--call", "pmml_ui.app:create_app"]
