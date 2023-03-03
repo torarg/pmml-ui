@@ -3,15 +3,7 @@
 
 import functools
 
-from flask import (
-    Blueprint,
-    flash,
-    g,
-    redirect,
-    render_template,
-    session,
-    url_for,
-)
+from flask import Blueprint, flash, g, redirect, render_template, session, url_for
 from werkzeug.security import check_password_hash
 
 from pmml_ui.auth.db import UserDB

@@ -3,13 +3,13 @@
 
 from flask import (
     Blueprint,
+    abort,
     g,
     redirect,
     render_template,
-    url_for,
-    session,
     request,
-    abort,
+    session,
+    url_for,
 )
 
 from pmml_ui.auth.views import login_required
