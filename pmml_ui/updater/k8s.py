@@ -6,7 +6,6 @@ import json
 import re
 
 from kubernetes import client, config
-
 from pmml_ui.config import K8S_CONNECTION_TYPE
 
 CONNECTION_TYPE_LOCAL = "local"
