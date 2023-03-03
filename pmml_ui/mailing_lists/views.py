@@ -1,7 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, g, redirect, render_template, url_for, session, request, abort
+from flask import (
+    Blueprint,
+    g,
+    redirect,
+    render_template,
+    url_for,
+    session,
+    request,
+    abort,
+)
 
 from pmml_ui.auth.views import login_required
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
@@ -12,7 +21,7 @@ blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 
 @blueprint.before_app_request
 def setup_updater():
-    if 'user_id' in session:
+    if "user_id" in session:
         g.updater = ConfigUpdater("pmml", "pmml-deployment", "pmml-pmmlrc", ".pmmlrc")
 
 
