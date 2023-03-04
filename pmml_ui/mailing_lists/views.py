@@ -6,11 +6,13 @@ from flask import Blueprint, abort, g, redirect, render_template, session, url_f
 from pmml_ui.auth.views import login_required
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
 from pmml_ui.updater.client import ConfigUpdater
+from pmml_ui.mailing_lists.exceptions import exception_handler
 
 blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 
 
 @blueprint.before_app_request
+@exception_handler
 def setup_updater():
     if "user_id" in session:
         g.updater = ConfigUpdater("pmml", "pmml-deployment", "pmml-pmmlrc", ".pmmlrc")

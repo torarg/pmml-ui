@@ -7,6 +7,7 @@ import re
 
 from kubernetes import client, config
 from pmml_ui.config import K8S_CONNECTION_TYPE
+from pmml_ui.updater.exceptions import exception_handler
 
 CONNECTION_TYPE_LOCAL = "local"
 CONNECTION_TYPE_INCLUSTER = "incluster"
@@ -49,18 +50,22 @@ class Client:
             config.load_incluster_config()
         return client.CoreV1Api()
 
+    @exception_handler
     def read_json_secret(self, name, namespace, data_path):
         k8s_secret = self.api_v1.read_namespaced_secret(name, namespace)
         return JsonSecret(name, namespace, k8s_secret, data_path)
 
+    @exception_handler
     def replace_json_secret(self, secret):
         return self.api_v1.replace_namespaced_secret(
             secret.name, secret.namespace, secret._api_v1_secret
         )
 
+    @exception_handler
     def delete_pod(self, name, namespace):
         self.api_v1.delete_namespaced_pod(name, namespace)
 
+    @exception_handler
     def delete_matching_pods_in_namespace(self, namespace, pattern):
         pods_in_namespace = self.api_v1.list_namespaced_pod(namespace)
         compiled_pattern = re.compile(pattern)
