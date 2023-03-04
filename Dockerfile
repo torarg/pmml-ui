@@ -1,6 +1,6 @@
-FROM python:3.11.2-alpine as build
+FROM python:3.11.2-alpine
 
-RUN adduser -D app && apk update && apk add runuser
+RUN adduser -D app
 
 USER app
 
