@@ -10,7 +10,7 @@ class KubernetesConnectionError(Exception):
 def exception_handler(func):
     def inner_function(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except MaxRetryError:
             raise KubernetesConnectionError("Connection failed")
 

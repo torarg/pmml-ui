@@ -8,7 +8,7 @@ from pmml_ui.updater import exceptions
 def exception_handler(func):
     def inner_function(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except exceptions.KubernetesConnectionError:
             return abort(503, "Kubernetes connection failed")
 
