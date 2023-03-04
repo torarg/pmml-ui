@@ -4,14 +4,15 @@
 from flask import Blueprint, abort, g, redirect, render_template, session, url_for
 
 from pmml_ui.auth.views import login_required
+from pmml_ui.config import (
+    PMML_NAMESPACE,
+    PMML_PMMLRC_FILE_NAME,
+    PMML_PMMLRC_SECRET_NAME,
+    PMML_POD_BASENAME,
+)
 from pmml_ui.mailing_lists.exceptions import exception_handler
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
 from pmml_ui.updater.client import ConfigUpdater
-from pmml_ui.config import (
-    PMML_NAMESPACE,
-    PMML_POD_BASENAME,
-    PMML_PMMLRC_SECRET_NAME,
-    PMML_PMMLRC_FILE_NAME)
 
 blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 
@@ -24,7 +25,7 @@ def setup_updater():
             namespace=PMML_NAMESPACE,
             pod_basename=PMML_POD_BASENAME,
             secret_name=PMML_PMMLRC_SECRET_NAME,
-            secret_filename=PMML_PMMLRC_FILE_NAME
+            secret_filename=PMML_PMMLRC_FILE_NAME,
         )
 
 

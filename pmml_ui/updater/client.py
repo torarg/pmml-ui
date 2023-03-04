@@ -10,7 +10,7 @@ class ConfigUpdater:
         self.client = Client()
         secret = self.client.read_json_secret(secret_name, namespace, secret_filename)
         self.config = PmmlConfiguration(secret)
-        self.pod_basename = Pod(pod_basename, namespace)
+        self.pod = Pod(pod_basename, namespace)
 
     def update(self, mailing_list):
         pod_pattern = f"^{self.pod.name}-.*$"

@@ -53,7 +53,8 @@ class Client:
     @exception_handler
     def read_json_secret(self, name, namespace, data_path):
         k8s_secret = self.api_v1.read_namespaced_secret(name, namespace)
-        return JsonSecret(name, namespace, k8s_secret, data_path)
+        json_secret = JsonSecret(name, namespace, k8s_secret, data_path)
+        return json_secret
 
     @exception_handler
     def replace_json_secret(self, secret):

@@ -7,7 +7,7 @@ from pmml_ui.mailing_lists.models import MailingList, MailingListMember
 class PmmlConfiguration:
     def __init__(self, json_secret):
         self.json_secret = json_secret
-        self.mailing_lists = self.read_mailing_lists_from_json(self.json_secret)
+        self.mailing_lists = self.read_mailing_lists_from_json(json_secret)
 
     def read_mailing_lists_from_json(self, json_secret):
         mailing_lists = {}
