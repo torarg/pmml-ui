@@ -6,11 +6,11 @@ from pmml_ui.updater.models import PmmlConfiguration
 
 
 class ConfigUpdater:
-    def __init__(self, namespace, pod_name, secret_name, secret_filename):
+    def __init__(self, namespace, pod_basename, secret_name, secret_filename):
         self.client = Client()
         secret = self.client.read_json_secret(secret_name, namespace, secret_filename)
         self.config = PmmlConfiguration(secret)
-        self.pod = Pod(pod_name, namespace)
+        self.pod_basename = Pod(pod_basename, namespace)
 
     def update(self, mailing_list):
         pod_pattern = f"^{self.pod.name}-.*$"

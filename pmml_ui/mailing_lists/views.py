@@ -7,6 +7,11 @@ from pmml_ui.auth.views import login_required
 from pmml_ui.mailing_lists.exceptions import exception_handler
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
 from pmml_ui.updater.client import ConfigUpdater
+from pmml_ui.config import (
+    PMML_NAMESPACE,
+    PMML_POD_BASENAME,
+    PMML_PMMLRC_SECRET_NAME,
+    PMML_PMMLRC_FILE_NAME)
 
 blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 
@@ -15,7 +20,12 @@ blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 @exception_handler
 def setup_updater():
     if "user_id" in session:
-        g.updater = ConfigUpdater("pmml", "pmml-deployment", "pmml-pmmlrc", ".pmmlrc")
+        g.updater = ConfigUpdater(
+            namespace=PMML_NAMESPACE,
+            pod_basename=PMML_POD_BASENAME,
+            secret_name=PMML_PMMLRC_SECRET_NAME,
+            secret_filename=PMML_PMMLRC_FILE_NAME
+        )
 
 
 @blueprint.route("/")
