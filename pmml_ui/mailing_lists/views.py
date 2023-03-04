@@ -4,9 +4,9 @@
 from flask import Blueprint, abort, g, redirect, render_template, session, url_for
 
 from pmml_ui.auth.views import login_required
+from pmml_ui.mailing_lists.exceptions import exception_handler
 from pmml_ui.mailing_lists.forms import MailingListForm, MailingListMemberFormCSRF
 from pmml_ui.updater.client import ConfigUpdater
-from pmml_ui.mailing_lists.exceptions import exception_handler
 
 blueprint = Blueprint("mailing_lists", __name__, url_prefix="/mailing_lists")
 

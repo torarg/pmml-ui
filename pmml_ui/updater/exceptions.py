@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 from urllib3.exceptions import MaxRetryError
 
+
 class KubernetesConnectionError(Exception):
     pass
+
 
 def exception_handler(func):
     def inner_function(*args, **kwargs):
         try:
             func(*args, **kwargs)
-        except MaxRetryError as e:
+        except MaxRetryError:
             raise KubernetesConnectionError("Connection failed")
+
     return inner_function

@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from pmml_ui.updater import exceptions
 from flask import abort
+
+from pmml_ui.updater import exceptions
+
 
 def exception_handler(func):
     def inner_function(*args, **kwargs):
@@ -9,4 +11,5 @@ def exception_handler(func):
             func(*args, **kwargs)
         except exceptions.KubernetesConnectionError:
             return abort(503, "Kubernetes connection failed")
+
     return inner_function
