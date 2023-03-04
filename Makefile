@@ -18,13 +18,13 @@ docker-publish:
 python-build:
 	poetry build
 
-build-all: python-build docker-build
+build: python-build docker-build
 
-relase-branch:
+release-branch:
 	git checkout -b release/${VERSION}
 	poetry version ${VERSION}
 	sed "s/torarg\/pmml-ui:.*/torarg\/pmml-ui:${VERSION}/g" kubernetes/deployment.yml > kubernetes/deployment.yml.new
-	sed "s/pmml_ui-.*/pmml_ui-${VERSION}/g" Dockerfile > Dockerfile.new
+	sed "s/pmml_ui-.*/pmml_ui-${VERSION}-py3-none-any.whl/g" Dockerfile > Dockerfile.new
 	mv Dockerfile.new Dockerfile
 	mv kubernetes/deployment.yml.new kubernetes/deployment.yml
 	git commit -a -m "bump version for release ${VERSION}."
@@ -32,9 +32,9 @@ relase-branch:
 
 merge-release:
 	git checkout main
-	git merge ${VERSION} -ff-only
+	git merge ${VERSION} --ff-only
 	git checkout develop
-	git merge ${VERSION} -no-ff -m 'Merge release ${VERSION} into develop.'
+	git merge ${VERSION} --no-ff -m 'Merge release ${VERSION} into develop.'
 
 pypi-publish:
 	poetry publish
@@ -49,4 +49,4 @@ git-publish:
 
 publish: pypi-publish docker-publish git-publish
 
-release: release-branch build-all merge-release publish
+release: release-branch build merge-release publish
