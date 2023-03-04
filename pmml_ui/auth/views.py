@@ -32,9 +32,9 @@ def login():
         user = UserDB().get_user(username=username)
 
         if user is None:
-            error = "Incorrect username."
+            error = "Invalid login."
         elif not check_password_hash(user.password_hash, password):
-            error = "Incorrect password."
+            error = "Invalid login."
 
         if error is None:
             session.clear()
