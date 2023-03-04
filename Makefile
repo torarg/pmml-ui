@@ -45,7 +45,7 @@ git-publish:
 	git push
 	git checkout develop
 	git push
-	git branch -d relase/${VERSION}
+	git branch -d release/${VERSION}
 
 publish: pypi-publish docker-publish git-publish
 
