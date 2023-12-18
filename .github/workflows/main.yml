@@ -11,5 +11,7 @@ jobs:
     steps:
     # checkout branch
     - uses: actions/checkout@master
+    - run: python -m venv ./venv
+    - run: source ./venv/bin/activate
     - run: pip install --upgrade black flake8 isort
     - run: make test
