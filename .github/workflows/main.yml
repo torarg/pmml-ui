@@ -13,6 +13,6 @@ jobs:
     - uses: actions/checkout@master
     - run: python -m venv ./venv
     - run: |
-    source ./venv/bin/activate
-    pip install --upgrade black flake8 isort
-    make test
+      source ./venv/bin/activate
+      pip install --upgrade black flake8 isort
+      make test
