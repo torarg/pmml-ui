@@ -3,15 +3,16 @@ on:
     branches:
       - develop
 
-name: self-hosted-example
+name: Tests
 
 jobs:
-  simpleExample:
+  tests:
     runs-on: self-hosted
     steps:
     # checkout branch
     - uses: actions/checkout@master
     - run: python -m venv ./venv
-    - run: source ./venv/bin/activate
-    - run: pip install --upgrade black flake8 isort
-    - run: make test
+    - run: |
+    source ./venv/bin/activate
+    pip install --upgrade black flake8 isort
+    make test
